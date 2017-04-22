@@ -8,6 +8,7 @@
     </ul>
     <div>
       <input type="text" v-model="tasktext"></input>
+      <select-type></select-type>
       <button v-on:click="addTask">add</button>
     </div>
   </div>
@@ -15,6 +16,7 @@
 
 <script>
 import Task from './Task.vue'
+import SelectType from './SelectType.vue'
 export default {
   name: 'tasks',
   data () {
@@ -35,7 +37,8 @@ export default {
     }
   },
   components: {
-    Task
+    Task,
+    SelectType
   }
 }
 </script>
