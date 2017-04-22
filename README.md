@@ -1,6 +1,6 @@
 # VueTask
 
-> this project for studying vue.js.
+> This project is a project to study javascript.
 
 ## Build Setup
 
