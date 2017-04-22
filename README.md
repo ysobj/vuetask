@@ -1,6 +1,6 @@
-# kuick
+# VueTask
 
-> A Vue.js project
+> this project for studying vue.js.
 
 ## Build Setup
 
