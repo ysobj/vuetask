@@ -1,13 +1,12 @@
 <template>
-  <select class="selecttype">
+  <select class="selecttype" v-on:change="changeSelectType" >
     <option v-for="item in types" v-bind:value="item.value">{{ item.label }}</option>
   </select>
 </template>
 
 <script>
 export default {
-  name: 'task',
-  props: ['xtask'],
+  name: 'select-type',
   data () {
     return {
       types: [
@@ -17,6 +16,11 @@ export default {
         { label: 'MNOP', value: 44 },
         { label: 'QRST', value: 55 }
       ]
+    }
+  },
+  methods: {
+    changeSelectType: function () {
+      console.log('change something')
     }
   }
 }
