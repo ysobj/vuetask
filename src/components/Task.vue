@@ -1,6 +1,6 @@
 <template>
   <li class="task">
-    <span v-on:click="deleteTask">{{ xtask.text }}</span>
+    <span v-bind:class="{ done: isDone }" v-on:click="deleteTask">{{ xtask.text }}</span>
   </li>
 </template>
 
@@ -10,17 +10,20 @@ export default {
   props: ['xtask'],
   data () {
     return {
-      task: 'hogehogefugafuga'
+      task: 'hogehogefugafuga',
+      isDone: false
     }
   },
   methods: {
     deleteTask: function (ev) {
-      console.log('deleteTask', ev)
-      console.log(this.xtask.text)
+      this.isDone = !this.isDone
     }
   }
 }
 </script>
 
 <style scoped>
+.done {
+  text-decoration: line-through
+}
 </style>
