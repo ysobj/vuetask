@@ -1,22 +1,20 @@
 <template>
   <li class="task">
-    <span v-bind:class="{ done: isDone }" v-on:click="deleteTask">{{ xtask.text }}</span>
+    <span v-bind:class="{ done: isDone }" v-on:click="deleteTask">{{ taskText }}</span>
   </li>
 </template>
 
 <script>
 export default {
   name: 'task',
-  props: ['xtask'],
+  props: ['taskText', 'isDone'],
   data () {
     return {
-      task: 'hogehogefugafuga',
-      isDone: false
     }
   },
   methods: {
     deleteTask: function (ev) {
-      this.isDone = !this.isDone
+      this.$emit('taskdone')
     }
   }
 }

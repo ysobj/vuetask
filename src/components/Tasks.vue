@@ -4,7 +4,11 @@
     <ul>
       <li>write some simple sample code.</li>
       <li>learn vuex basic.</li>
-      <task v-for="item in taskList" v-bind:xtask="item"></task>
+      <task v-for="item in taskList"
+        v-bind:taskText="item.text"
+        v-bind:isDone="item.isDone"
+        v-on:taskdone="taskdone(item)">
+      </task>
     </ul>
     <div>
       <input type="text" v-model="tasktext"></input>
@@ -24,8 +28,8 @@ export default {
       tasktext: 'this is sample',
       msg: 'Welcome to Your Vue.js App',
       taskList: [
-        { text: 'do something' },
-        { text: 'eat more vagitable' }
+        { text: 'do something', isDone: false },
+        { text: 'eat more vagitable', isDone: true }
       ]
     }
   },
@@ -33,7 +37,10 @@ export default {
     addTask: function (ev) {
       console.log('addTask', ev)
       this.msg = new Date()
-      this.taskList.push({ text: this.tasktext })
+      this.taskList.push({ text: this.tasktext, isDone: false })
+    },
+    taskdone: function (ev) {
+      ev.isDone = !ev.isDone
     }
   },
   components: {
