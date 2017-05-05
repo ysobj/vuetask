@@ -2,17 +2,16 @@
   <div class="tasks">
     <h1>{{ msg }}</h1>
     <ul>
-      <li>write some simple sample code.</li>
-      <li>learn vuex basic.</li>
       <task v-for="item in taskList"
         v-bind:taskText="item.text"
         v-bind:isDone="item.isDone"
+        v-bind:taskType="item.type"
         v-on:taskdone="taskdone(item)">
       </task>
     </ul>
     <div>
+      <select-type v-model="tasktype"></select-type>
       <input type="text" v-model="tasktext"></input>
-      <select-type></select-type>
       <button v-on:click="addTask">add</button>
     </div>
   </div>
@@ -25,19 +24,18 @@ export default {
   name: 'tasks',
   data () {
     return {
+      tasktype: 'TODO',
       tasktext: 'this is sample',
-      msg: 'Welcome to Your Vue.js App',
+      msg: 'This is Todo App',
       taskList: [
-        { text: 'do something', isDone: false },
-        { text: 'eat more vagitable', isDone: true }
+        { text: 'do something', isDone: false, type: 'TODO' },
+        { text: 'eat more vagitable', isDone: true, type: 'DAILY' }
       ]
     }
   },
   methods: {
     addTask: function (ev) {
-      console.log('addTask', ev)
-      this.msg = new Date()
-      this.taskList.push({ text: this.tasktext, isDone: false })
+      this.taskList.push({ text: this.tasktext, isDone: false, type: this.tasktype })
     },
     taskdone: function (ev) {
       ev.isDone = !ev.isDone
@@ -62,5 +60,9 @@ ul {
 
 a {
   color: #42b983;
+}
+
+.tasks {
+  margin: auto;
 }
 </style>
