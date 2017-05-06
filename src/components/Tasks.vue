@@ -3,9 +3,9 @@
     <h1>{{ msg }}</h1>
     <ul>
       <task v-for="item in taskList"
-        v-bind:taskText="item.text"
-        v-bind:isDone="item.isDone"
-        v-bind:taskType="item.type"
+        :taskText="item.text"
+        :isDone="item.isDone"
+        :taskType="item.type"
         @changeTaskState="changeTaskState(item)">
       </task>
     </ul>

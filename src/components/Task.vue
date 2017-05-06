@@ -1,7 +1,7 @@
 <template>
   <li class="task">
-    <span class="task-type-base" v-bind:class="typeClass">{{ taskType }}</span>
-    <span v-bind:class="{ done: isDone }" @click="changeTaskState">{{ taskText }}</span>
+    <span class="task-type-base" :class="typeClass">{{ taskType }}</span>
+    <span :class="{ done: isDone }" @click="changeTaskState">{{ taskText }}</span>
   </li>
 </template>
 
