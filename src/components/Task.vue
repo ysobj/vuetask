@@ -1,7 +1,7 @@
 <template>
   <li class="task">
     <span class="task-type-base" v-bind:class="typeClass">{{ taskType }}</span>
-    <span v-bind:class="{ done: isDone }" v-on:click="deleteTask">{{ taskText }}</span>
+    <span v-bind:class="{ done: isDone }" v-on:click="changeTaskState">{{ taskText }}</span>
   </li>
 </template>
 
@@ -14,8 +14,8 @@ export default {
     }
   },
   methods: {
-    deleteTask: function (ev) {
-      this.$emit('taskdone')
+    changeTaskState: function (ev) {
+      this.$emit('changeTaskState')
     }
   },
   computed: {

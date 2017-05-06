@@ -6,7 +6,7 @@
         v-bind:taskText="item.text"
         v-bind:isDone="item.isDone"
         v-bind:taskType="item.type"
-        v-on:taskdone="taskdone(item)">
+        v-on:changeTaskState="changeTaskState(item)">
       </task>
     </ul>
     <div>
@@ -38,8 +38,8 @@ export default {
     addTask (ev) {
       this.$store.commit('addTask', { text: this.tasktext, isDone: false, type: this.tasktype })
     },
-    taskdone (ev) {
-      ev.isDone = !ev.isDone
+    changeTaskState (ev) {
+      this.$store.commit('changeTaskState', ev)
     }
   },
   components: {

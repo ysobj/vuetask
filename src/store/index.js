@@ -17,6 +17,11 @@ const actions = {
 const mutations = {
   addTask (state, task) {
     state.taskList.push(task)
+  },
+  changeTaskState (state, task) {
+    console.log('changeTaskState', task)
+    var tmp = state.taskList.find((el) => el === task)
+    tmp.isDone = !tmp.isDone
   }
 }
 
