@@ -26,18 +26,19 @@ export default {
     return {
       tasktype: 'TODO',
       tasktext: 'this is sample',
-      msg: 'This is Todo App',
-      taskList: [
-        { text: 'do something', isDone: false, type: 'TODO' },
-        { text: 'eat more vagitable', isDone: true, type: 'DAILY' }
-      ]
+      msg: 'This is Todo App'
+    }
+  },
+  computed: {
+    taskList () {
+      return this.$store.state.taskList
     }
   },
   methods: {
-    addTask: function (ev) {
-      this.taskList.push({ text: this.tasktext, isDone: false, type: this.tasktype })
+    addTask (ev) {
+      this.$store.commit('addTask', { text: this.tasktext, isDone: false, type: this.tasktype })
     },
-    taskdone: function (ev) {
+    taskdone (ev) {
       ev.isDone = !ev.isDone
     }
   },
