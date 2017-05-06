@@ -1,5 +1,5 @@
 <template>
-  <select class="selecttype" v-on:change="changeSelectType($event.target.value)" v-bind:value="value">
+  <select class="selecttype" @change="changeSelectType($event.target.value)" v-bind:value="value">
     <option v-for="item in types" v-bind:value="item.value">{{ item.label }}</option>
   </select>
 </template>

@@ -6,13 +6,13 @@
         v-bind:taskText="item.text"
         v-bind:isDone="item.isDone"
         v-bind:taskType="item.type"
-        v-on:changeTaskState="changeTaskState(item)">
+        @changeTaskState="changeTaskState(item)">
       </task>
     </ul>
     <div>
       <select-type v-model="tasktype"></select-type>
       <input type="text" v-model="tasktext"></input>
-      <button v-on:click="addTask">add</button>
+      <button @click="addTask">add</button>
     </div>
   </div>
 </template>
