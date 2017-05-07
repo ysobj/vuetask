@@ -9,23 +9,17 @@
         @changeTaskState="changeTaskState(item)">
       </task>
     </ul>
-    <div>
-      <select-type v-model="tasktype"></select-type>
-      <input type="text" v-model="tasktext"></input>
-      <button @click="addTask">add</button>
-    </div>
+    <task-form></task-form>
   </div>
 </template>
 
 <script>
 import Task from './Task.vue'
-import SelectType from './SelectType.vue'
+import TaskForm from './TaskForm.vue'
 export default {
   name: 'tasks',
   data () {
     return {
-      tasktype: 'TODO',
-      tasktext: 'this is sample',
       msg: 'This is Todo App'
     }
   },
@@ -35,16 +29,13 @@ export default {
     }
   },
   methods: {
-    addTask (ev) {
-      this.$store.commit('addTask', { text: this.tasktext, isDone: false, type: this.tasktype })
-    },
     changeTaskState (ev) {
       this.$store.commit('changeTaskState', ev)
     }
   },
   components: {
     Task,
-    SelectType
+    TaskForm
   }
 }
 </script>
