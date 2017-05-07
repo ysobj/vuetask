@@ -2,6 +2,10 @@
   <li class="task">
     <span class="task-type-base" :class="typeClass">{{ taskType }}</span>
     <span :class="{ done: isDone }" @click="changeTaskState">{{ taskText }}</span>
+    <input class="task-minutes" type="text"></input>
+    <span>{{ elapsed }}</span>
+    <input class="task-time" type="text"></input>
+    <input class="task-time" type="text"></input>
   </li>
 </template>
 
@@ -25,6 +29,9 @@ export default {
         'task-type-daily': this.taskType === 'DAILY',
         'task-type-habit': this.taskType === 'HABIT'
       }
+    },
+    elapsed () {
+      return 30
     }
   }
 }
@@ -50,5 +57,11 @@ export default {
 }
 .task-type-habit {
   background-color: red;
+}
+.task-time {
+  width: 30px;
+}
+.task-minutes {
+  width: 20px;
 }
 </style>
