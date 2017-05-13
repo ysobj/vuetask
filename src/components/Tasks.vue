@@ -1,14 +1,14 @@
 <template>
   <div class="tasks">
     <h1>{{ msg }}</h1>
-    <ul>
+    <table>
       <task v-for="item in taskList"
         :taskText="item.text"
         :isDone="item.isDone"
         :taskType="item.type"
         @changeTaskState="changeTaskState(item)">
       </task>
-    </ul>
+    </table>
     <task-form></task-form>
   </div>
 </template>
@@ -56,5 +56,9 @@ a {
 
 .tasks {
   margin: auto;
+}
+
+.tasks table {
+  display: inline-block;
 }
 </style>

@@ -1,12 +1,12 @@
 <template>
-  <li class="task">
-    <span class="task-type-base" :class="typeClass">{{ taskType }}</span>
-    <span :class="{ done: isDone }" @click="changeTaskState">{{ taskText }}</span>
-    <input class="task-minutes" type="text"></input>
-    <span>{{ elapsed }}</span>
-    <input class="task-time" type="text"></input>
-    <input class="task-time" type="text"></input>
-  </li>
+  <tr  class="task">
+    <td><div class="task-type-base" :class="typeClass">{{ taskType }}</div></td>
+    <td><span :class="{ done: isDone }" @click="changeTaskState">{{ taskText }}</span></td>
+    <td><input class="task-minutes" type="text"></input></td>
+    <td><span>{{ elapsed }}</span></td>
+    <td><input class="task-time" type="text"></input></td>
+    <td><input class="task-time" type="text"></input></td>
+  </tr>
 </template>
 
 <script>
