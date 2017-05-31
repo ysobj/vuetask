@@ -4,17 +4,20 @@
     <td><span :class="{ done: isDone }" @click="changeTaskState">{{ taskText }}</span></td>
     <td><input class="task-minutes" type="text"></input></td>
     <td><span>{{ elapsed }}</span></td>
-    <td><input class="task-time" type="text"></input></td>
-    <td><input class="task-time" type="text"></input></td>
+    <td><input class="task-time" type="text" v-model.number="fromDateStr"></input></td>
+    <td><input class="task-time" type="text" v-model.number="toDateStr"></input></td>
   </tr>
 </template>
 
 <script>
+var moment = require('moment')
 export default {
   name: 'task',
   props: ['taskText', 'isDone', 'taskType'],
   data () {
     return {
+      fromDateStr: '',
+      toDateStr: ''
     }
   },
   methods: {
@@ -31,7 +34,20 @@ export default {
       }
     },
     elapsed () {
-      return 30
+      var fromDate = moment()
+      if (this.fromDateStr) {
+        fromDate.hour(this.fromDateStr / 100)
+        fromDate.minute(this.fromDateStr % 100)
+      }
+      var toDate = moment()
+      if (this.toDateStr) {
+        toDate.hour(this.toDateStr / 100)
+        toDate.minute(this.toDateStr % 100)
+      }
+      if (this.fromDateStr && this.toDateStr) {
+        return toDate.diff(fromDate, 'minutes')
+      }
+      return this.fromDateStr
     }
   }
 }
