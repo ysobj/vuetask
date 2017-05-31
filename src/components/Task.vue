@@ -2,10 +2,10 @@
   <tr  class="task">
     <td><div class="task-type-base" :class="typeClass">{{ taskType }}</div></td>
     <td><span :class="{ done: isDone }" @click="changeTaskState">{{ taskText }}</span></td>
+    <td class="task-time"><span>{{ elapsed }}</span></td>
+    <td class="task-date"><span>{{ fromDate }}</span></td>
+    <td class="task-date"><span>{{ toDate }}</span></td>
     <td><input class="task-minutes" type="text"></input></td>
-    <td><span>{{ elapsed }}</span></td>
-    <td><span>{{ fromDate }}</span></td>
-    <td><span>{{ toDate }}</span></td>
     <td><input class="task-time" type="text" v-model.number="fromDateStr"></input></td>
     <td><input class="task-time" type="text" v-model.number="toDateStr"></input></td>
   </tr>
@@ -56,10 +56,16 @@ export default {
     },
     toDate () {
       return format(this.toDateStr)
+    },
+    isDone () {
+      return this.fromDate && this.toDate
     }
   }
 }
 function format (num) {
+  if (!num) {
+    return null
+  }
   let min = ('' + (num % 100)).length === 1 ? '0' + num % 100 : num % 100
   return Math.floor(num / 100) + ':' + min
 }
@@ -87,9 +93,12 @@ function format (num) {
   background-color: red;
 }
 .task-time {
-  width: 30px;
+  width: 40px;
 }
 .task-minutes {
   width: 20px;
+}
+.task-date {
+  width: 70px;
 }
 </style>

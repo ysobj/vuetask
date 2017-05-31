@@ -5,9 +5,9 @@ Vue.use(Vuex)
 
 const state = {
   taskList: [
-    { text: 'do something', isDone: false, type: 'TODO' },
-    { text: 'eat more vagitable', isDone: true, type: 'DAILY' },
-    { text: 'eat more vagitable?', isDone: true, type: 'HABIT' }
+    { text: 'do something', type: 'TODO' },
+    { text: 'eat more vagitable', type: 'DAILY' },
+    { text: 'eat more vagitable?', type: 'HABIT' }
   ]
 }
 
