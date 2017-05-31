@@ -4,6 +4,8 @@
     <td><span :class="{ done: isDone }" @click="changeTaskState">{{ taskText }}</span></td>
     <td><input class="task-minutes" type="text"></input></td>
     <td><span>{{ elapsed }}</span></td>
+    <td><span>{{ fromDate }}</span></td>
+    <td><span>{{ toDate }}</span></td>
     <td><input class="task-time" type="text" v-model.number="fromDateStr"></input></td>
     <td><input class="task-time" type="text" v-model.number="toDateStr"></input></td>
   </tr>
@@ -48,8 +50,18 @@ export default {
         return toDate.diff(fromDate, 'minutes')
       }
       return this.fromDateStr
+    },
+    fromDate () {
+      return format(this.fromDateStr)
+    },
+    toDate () {
+      return format(this.toDateStr)
     }
   }
+}
+function format (num) {
+  let min = ('' + (num % 100)).length === 1 ? '0' + num % 100 : num % 100
+  return Math.floor(num / 100) + ':' + min
 }
 </script>
 
