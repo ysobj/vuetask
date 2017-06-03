@@ -2,7 +2,7 @@
   <tr  class="task">
     <td><div class="task-type-base" :class="typeClass">{{ taskType }}</div></td>
     <td><span :class="{ done: isDone }" @click="changeTaskState">{{ taskText }}</span></td>
-    <td class="task-time"><span>{{ elapsed }}</span></td>
+    <td class="task-time" :class="exceedEstimate"><span>{{ elapsed }}</span></td>
     <td class="task-date"><span>{{ fromDate }}</span></td>
     <td class="task-date"><span>{{ toDate }}</span></td>
     <td><input class="task-minutes" type="text"></input></td>
@@ -28,7 +28,10 @@ export default {
     }
   },
   computed: {
-    typeClass: function () {
+    exceedEstimate () {
+      return { 'exceed-estimate': true }
+    },
+    typeClass () {
       return {
         'task-type-todo': this.taskType === 'TODO',
         'task-type-daily': this.taskType === 'DAILY',
@@ -59,6 +62,9 @@ export default {
     },
     isDone () {
       return this.fromDate && this.toDate
+    },
+    isExceedEstimate () {
+      return true
     }
   }
 }
@@ -100,5 +106,9 @@ function format (num) {
 }
 .task-date {
   width: 70px;
+}
+.exceed-estimate {
+  color: #ff0000;
+  font-weight: bold;
 }
 </style>
