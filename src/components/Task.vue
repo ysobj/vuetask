@@ -5,7 +5,7 @@
     <td class="task-time" :class="exceedEstimate"><span>{{ elapsed }}</span></td>
     <td class="task-date"><span>{{ fromDate }}</span></td>
     <td class="task-date"><span>{{ toDate }}</span></td>
-    <td><input class="task-minutes" type="text"></input></td>
+    <td><input class="task-minutes" type="text" v-model.number="estimate"></input></td>
     <td><input class="task-time" type="text" v-model.number="fromDateStr"></input></td>
     <td><input class="task-time" type="text" v-model.number="toDateStr"></input></td>
   </tr>
@@ -19,7 +19,8 @@ export default {
   data () {
     return {
       fromDateStr: '',
-      toDateStr: ''
+      toDateStr: '',
+      estimate: ''
     }
   },
   methods: {
@@ -29,7 +30,10 @@ export default {
   },
   computed: {
     exceedEstimate () {
-      return { 'exceed-estimate': true }
+      let elapsed = calcElapsed(this.fromDateStr, this.toDateStr)
+      let exceed = elapsed > this.estimate
+      console.log('elapsed,estimate', elapsed, this.estimate)
+      return { 'exceed-estimate': exceed }
     },
     typeClass () {
       return {
@@ -39,20 +43,7 @@ export default {
       }
     },
     elapsed () {
-      var fromDate = moment()
-      if (this.fromDateStr) {
-        fromDate.hour(this.fromDateStr / 100)
-        fromDate.minute(this.fromDateStr % 100)
-      }
-      var toDate = moment()
-      if (this.toDateStr) {
-        toDate.hour(this.toDateStr / 100)
-        toDate.minute(this.toDateStr % 100)
-      }
-      if (this.fromDateStr && this.toDateStr) {
-        return toDate.diff(fromDate, 'minutes')
-      }
-      return this.fromDateStr
+      return calcElapsed(this.fromDateStr, this.toDateStr)
     },
     fromDate () {
       return format(this.fromDateStr)
@@ -62,11 +53,24 @@ export default {
     },
     isDone () {
       return this.fromDate && this.toDate
-    },
-    isExceedEstimate () {
-      return true
     }
   }
+}
+function calcElapsed (fromDateStr, toDateStr) {
+  var fromDate = moment()
+  if (fromDateStr) {
+    fromDate.hour(fromDateStr / 100)
+    fromDate.minute(fromDateStr % 100)
+  }
+  var toDate = moment()
+  if (toDateStr) {
+    toDate.hour(toDateStr / 100)
+    toDate.minute(toDateStr % 100)
+  }
+  if (fromDateStr && toDateStr) {
+    return toDate.diff(fromDate, 'minutes')
+  }
+  return null
 }
 function format (num) {
   if (!num) {
