@@ -5,9 +5,9 @@ Vue.use(Vuex)
 
 const state = {
   taskList: [
-    { text: 'do something', type: 'TODO' },
-    { text: 'eat more vagitable', type: 'DAILY' },
-    { text: 'eat more vagitable?', type: 'HABIT' }
+    { id: 1, text: 'do something', type: 'TODO' },
+    { id: 2, text: 'eat more vagitable', type: 'DAILY' },
+    { id: 3, text: 'eat more vagitable?', type: 'HABIT' }
   ]
 }
 
@@ -22,6 +22,10 @@ const mutations = {
     console.log('changeTaskState', task)
     let tmp = state.taskList.find((el) => el === task)
     tmp.isDone = !tmp.isDone
+  },
+  updateList (state, list) {
+    state.taskList.splice(0, state.taskList.length)
+    list.forEach((item) => state.taskList.push(item))
   }
 }
 

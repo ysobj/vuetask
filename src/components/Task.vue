@@ -1,5 +1,5 @@
 <template>
-  <tr  class="task">
+  <tr class="task">
     <td><div class="task-type-base" :class="typeClass">{{ taskType }}</div></td>
     <td><span :class="{ done: isDone }" @click="changeTaskState">{{ taskText }}</span></td>
     <td class="task-time" :class="exceedEstimate"><span>{{ elapsed }}</span></td>

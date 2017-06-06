@@ -2,12 +2,18 @@
   <div class="tasks">
     <h1>{{ msg }}</h1>
     <table>
-      <task v-for="item in taskList"
-        :taskText="item.text"
-        :isDone="item.isDone"
-        :taskType="item.type"
-        @changeTaskState="changeTaskState(item)">
-      </task>
+      <tbody>
+        <draggable v-model="taskList">
+          <task v-for="item in taskList"
+            :taskText="item.text"
+            :isDone="item.isDone"
+            :taskType="item.type"
+            :key="item.id"
+            @click="dropTask"
+            @changeTaskState="changeTaskState(item)">
+          </task>
+        </draggable>
+      </tbody>
     </table>
     <task-form></task-form>
   </div>
@@ -16,6 +22,7 @@
 <script>
 import Task from './Task.vue'
 import TaskForm from './TaskForm.vue'
+import draggable from 'vuedraggable'
 export default {
   name: 'tasks',
   data () {
@@ -24,18 +31,27 @@ export default {
     }
   },
   computed: {
-    taskList () {
-      return this.$store.state.taskList
+    taskList: {
+      get () {
+        return this.$store.state.taskList
+      },
+      set (value) {
+        this.$store.commit('updateList', value)
+      }
     }
   },
   methods: {
     changeTaskState (ev) {
       this.$store.commit('changeTaskState', ev)
+    },
+    dropTask (ev) {
+      console.log(ev)
     }
   },
   components: {
     Task,
-    TaskForm
+    TaskForm,
+    draggable
   }
 }
 </script>
