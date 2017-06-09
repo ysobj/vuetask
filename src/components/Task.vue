@@ -6,8 +6,8 @@
     <td class="task-date"><span>{{ fromDate }}</span></td>
     <td class="task-date"><span>{{ toDate }}</span></td>
     <td><input class="task-minutes" type="text" v-model.number="estimate"></input></td>
-    <td><input class="task-time" type="text" v-model.number="fromDateStr"></input></td>
-    <td><input class="task-time" type="text" v-model.number="toDateStr"></input></td>
+    <td><input class="task-time" type="text" v-model.number="fromDateStr" @keydown.ctrl.66="inputFromDate"></input></td>
+    <td><input class="task-time" type="text" v-model.number="toDateStr" @keydown.ctrl.66="inputToDate"></input></td>
   </tr>
 </template>
 
@@ -15,7 +15,7 @@
 var moment = require('moment')
 export default {
   name: 'task',
-  props: ['taskText', 'isDone', 'taskType'],
+  props: ['taskText', 'taskType'],
   data () {
     return {
       fromDateStr: '',
@@ -24,15 +24,20 @@ export default {
     }
   },
   methods: {
-    changeTaskState: function (ev) {
+    changeTaskState (ev) {
       this.$emit('changeTaskState')
+    },
+    inputFromDate () {
+      console.log('inputFromDate')
+    },
+    inputToDate () {
+      console.log('inputToDate')
     }
   },
   computed: {
     exceedEstimate () {
       let elapsed = calcElapsed(this.fromDateStr, this.toDateStr)
       let exceed = elapsed > this.estimate
-      console.log('elapsed,estimate', elapsed, this.estimate)
       return { 'exceed-estimate': exceed }
     },
     typeClass () {

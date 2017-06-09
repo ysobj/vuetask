@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     addTask (ev) {
-      this.$store.commit('addTask', { text: this.tasktext, isDone: false, type: this.tasktype })
+      this.$store.commit('addTask', { text: this.tasktext, type: this.tasktype })
     }
   },
   components: {
