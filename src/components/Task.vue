@@ -1,13 +1,11 @@
 <template>
-  <tr class="task">
+  <tr class="task" @click="changeEditMode(true)">
     <td><div class="task-type-base" :class="typeClass">{{ taskType }}</div></td>
     <td><span :class="{ done: isDone }" @click="changeTaskState">{{ taskText }}</span></td>
     <td class="task-time" :class="exceedEstimate"><span>{{ elapsed }}</span></td>
-    <td class="task-date"><span>{{ fromDate }}</span></td>
-    <td class="task-date"><span>{{ toDate }}</span></td>
-    <td><input class="task-minutes" type="text" v-model.number="estimate"></input></td>
-    <td><input class="task-time" type="text" v-model.number="fromDateStr" @keydown.ctrl.66="inputFromDate" @blur="updateTask"></input></td>
-    <td><input class="task-time" type="text" v-model.number="toDateStr" @keydown.ctrl.66="inputToDate"></input></td>
+    <td class="task-time"><input v-if="editable" class="task-minutes" type="text" v-model.number="estimate"></input><span v-else>{{ estimate }}</span></td>
+    <td class="task-date"><input v-if="editable" class="task-time" type="text" v-model.number="fromDateStr" @keydown.ctrl.66="inputFromDate" @blur="updateTask"></input><span v-else>{{ fromDate }}</span></td>
+    <td class="task-date"><input v-if="editable" class="task-time" type="text" v-model.number="toDateStr" @keydown.ctrl.66="inputToDate" @blur="changeEditMode(false)"></input><span v-else>{{ toDate }}</span></td>
   </tr>
 </template>
 
@@ -20,7 +18,8 @@ export default {
     return {
       fromDateStr: '',
       toDateStr: '',
-      estimate: ''
+      estimate: '',
+      editable: false
     }
   },
   methods: {
@@ -35,6 +34,9 @@ export default {
     },
     updateTask () {
       console.log('updateTask')
+    },
+    changeEditMode (mode) {
+      this.editable = mode
     }
   },
   computed: {
