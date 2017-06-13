@@ -1,12 +1,12 @@
 <template>
   <div class="date-container">
-    <div class="date-box">$$</div>
+    <div class="date-box"><img src="static/repeat.png"></div>
     <div class="date-box">&lt;&lt;</div>
     <div class="date-box">Yesterday</div>
     <div class="date-box attention">2017/6/13</div>
     <div class="date-box">Tomorrow</div>
     <div class="date-box">&gt;&gt;</div>
-    <div class="date-box">##</div>
+    <div class="date-box"><img src="static/gear.png"></div>
   </div>
 </template>
 
