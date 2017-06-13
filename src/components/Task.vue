@@ -6,7 +6,7 @@
     <td class="task-date"><span>{{ fromDate }}</span></td>
     <td class="task-date"><span>{{ toDate }}</span></td>
     <td><input class="task-minutes" type="text" v-model.number="estimate"></input></td>
-    <td><input class="task-time" type="text" v-model.number="fromDateStr" @keydown.ctrl.66="inputFromDate"></input></td>
+    <td><input class="task-time" type="text" v-model.number="fromDateStr" @keydown.ctrl.66="inputFromDate" @blur="updateTask"></input></td>
     <td><input class="task-time" type="text" v-model.number="toDateStr" @keydown.ctrl.66="inputToDate"></input></td>
   </tr>
 </template>
@@ -31,7 +31,10 @@ export default {
       console.log('inputFromDate')
     },
     inputToDate () {
-      console.log('inputToDate')
+      this.toDateStr = moment().format('HH:mm')
+    },
+    updateTask () {
+      console.log('updateTask')
     }
   },
   computed: {

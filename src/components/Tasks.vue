@@ -1,6 +1,5 @@
 <template>
   <div class="tasks">
-    <h1>{{ msg }}</h1>
     <table>
       <tbody>
         <draggable v-model="taskList">
