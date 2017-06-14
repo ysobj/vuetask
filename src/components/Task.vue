@@ -37,6 +37,7 @@ export default {
     },
     changeEditMode (mode) {
       this.editable = mode
+      this.$emit('changeEditMode', mode)
     }
   },
   computed: {

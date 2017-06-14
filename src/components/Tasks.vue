@@ -5,10 +5,10 @@
         <draggable v-model="taskList">
           <task v-for="item in taskList"
             :taskText="item.text"
-            :isDone="item.isDone"
             :taskType="item.type"
             :key="item.id"
-            @click="dropTask"
+            :editable="item.editable"
+            @changeEditMode="changeTaskEditMode(item, $event)"
             @changeTaskState="changeTaskState(item)">
           </task>
         </draggable>
@@ -43,8 +43,16 @@ export default {
     changeTaskState (ev) {
       this.$store.commit('changeTaskState', ev)
     },
-    dropTask (ev) {
-      console.log(ev)
+    changeTaskEditMode (item, ev) {
+      console.log(item, ev)
+      if (ev) {
+        this.taskList.forEach((task) => {
+          if (task !== item && item.editable) {
+            console.log('test')
+            item.editable = false
+          }
+        })
+      }
     }
   },
   components: {
