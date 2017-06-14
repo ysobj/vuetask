@@ -1,7 +1,7 @@
 <template>
   <tr class="task" @click="changeEditMode(true)">
     <td><div class="task-type-base" :class="typeClass">{{ taskType }}</div></td>
-    <td><span :class="{ done: isDone }" @click="changeTaskState">{{ taskText }}</span></td>
+    <td><span :class="{ done: isDone }">{{ taskText }}</span></td>
     <td class="task-time" :class="exceedEstimate"><span>{{ elapsed }}</span></td>
     <td class="task-time"><input v-if="editable" class="task-minutes" type="text" v-model.number="estimate"></input><span v-else>{{ estimate }}</span></td>
     <td class="task-date"><input v-if="editable" class="task-time" type="text" v-model.number="fromDateStr" @keydown.ctrl.66="inputFromDate" @blur="updateTask"></input><span v-else>{{ fromDate }}</span></td>
