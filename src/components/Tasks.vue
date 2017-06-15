@@ -7,9 +7,8 @@
             :taskText="item.text"
             :taskType="item.type"
             :key="item.id"
-            :editable="item.editable"
-            @changeEditMode="changeTaskEditMode(item, $event)"
-            @changeTaskState="changeTaskState(item)">
+            @updateTask="updateTask(item)"
+            @updateTaskState="updateTaskState(item)">
           </task>
         </draggable>
       </tbody>
@@ -40,19 +39,11 @@ export default {
     }
   },
   methods: {
-    changeTaskState (ev) {
-      this.$store.commit('changeTaskState', ev)
+    updateTaskState (ev) {
+      this.$store.commit('updateTaskState', ev)
     },
-    changeTaskEditMode (item, ev) {
-      console.log(item, ev)
-      if (ev) {
-        this.taskList.forEach((task) => {
-          if (task !== item && item.editable) {
-            console.log('test')
-            item.editable = false
-          }
-        })
-      }
+    updateTask (ev) {
+      this.$store.commit('updateTask', ev)
     }
   },
   components: {
