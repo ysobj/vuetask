@@ -33,6 +33,9 @@ export default {
   background: #60B99A;
   color: #fff;
 }
+.date-box:hover{
+  filter: brightness(80%)
+}
 .attention {
   background: orange;
 }
