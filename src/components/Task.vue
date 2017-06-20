@@ -4,8 +4,8 @@
     <td><input v-if="editable" @blur="updateTask" type="text" v-model="taskText"></input><span v-else  :class="{ done: isDone }">{{ taskText }}</span></td>
     <td class="task-time"><input v-if="editable" @blur="updateTask" class="task-minutes" type="text" v-model.number="estimate"></input><span v-else>{{ estimate }}</span></td>
     <td class="task-time" :class="exceedEstimate"><span>{{ elapsed }}</span></td>
-    <td class="task-date"><input v-if="editable" class="task-time" type="text" v-model.number="fromDateStr" @keydown.ctrl.66="inputFromDate" @blur="updateTask"></input><span v-else>{{ fromDate }}</span></td>
-    <td class="task-date"><input v-if="editable" class="task-time" type="text" v-model.number="toDateStr" @keydown.ctrl.66="inputToDate" @blur="changeEditMode(false)"></input><span v-else>{{ toDate }}</span></td>
+    <td class="task-date"><input v-if="editable" class="task-time" type="text" v-model.number="fromDate" @keydown.ctrl.66="inputFromDate" @blur="updateTask"></input><span v-else>{{ fromDate }}</span></td>
+    <td class="task-date"><input v-if="editable" class="task-time" type="text" v-model.number="toDate" @keydown.ctrl.66="inputToDate" @blur="updateTask"></input><span v-else>{{ toDate }}</span></td>
   </tr>
 </template>
 
@@ -13,12 +13,13 @@
 var moment = require('moment')
 export default {
   name: 'task',
-  props: ['taskText', 'taskType'],
+  props: [ 'id', 'taskType', 'taskText', 'taskEstimate', 'taskFromDate', 'taskToDate' ],
   data () {
     return {
-      fromDateStr: '',
-      toDateStr: '',
-      estimate: '',
+      text: this.taskText,
+      estimate: this.taskEstimate,
+      fromDate: formatDateToStr(this.taskFromDate),
+      toDate: formatDateToStr(this.taskToDate),
       editable: false
     }
   },
@@ -28,12 +29,14 @@ export default {
     },
     inputFromDate () {
       console.log('inputFromDate')
+      console.log(format())
     },
     inputToDate () {
-      this.toDateStr = moment().format('HH:mm')
+      this.toDate = moment().format('HH:mm')
     },
     updateTask () {
-      this.$emit('updateTask')
+    //  this.$emit('updateTask')
+      this.$store.commit('updateTask', this)
     },
     changeEditMode (mode) {
       this.editable = mode
@@ -42,7 +45,7 @@ export default {
   },
   computed: {
     exceedEstimate () {
-      let elapsed = calcElapsed(this.fromDateStr, this.toDateStr)
+      let elapsed = calcElapsed(this.fromDate, this.toDate)
       let exceed = elapsed > this.estimate
       return { 'exceed-estimate': exceed }
     },
@@ -54,34 +57,30 @@ export default {
       }
     },
     elapsed () {
-      return calcElapsed(this.fromDateStr, this.toDateStr)
-    },
-    fromDate () {
-      return format(this.fromDateStr)
-    },
-    toDate () {
-      return format(this.toDateStr)
+      return calcElapsed(this.fromDate, this.toDate)
     },
     isDone () {
       return this.fromDate && this.toDate
     }
   }
 }
-function calcElapsed (fromDateStr, toDateStr) {
-  var fromDate = moment()
-  if (fromDateStr) {
-    fromDate.hour(fromDateStr / 100)
-    fromDate.minute(fromDateStr % 100)
+function calcElapsed (fromDate, toDate) {
+  var tmpFromDate = moment()
+  if (fromDate != null) {
+    let tmp = fromDate.split(':')
+    tmpFromDate.hour(tmp[0])
+    tmpFromDate.minute(tmp[1])
   }
-  var toDate = moment()
-  if (toDateStr) {
-    toDate.hour(toDateStr / 100)
-    toDate.minute(toDateStr % 100)
+  var tmpToDate = moment()
+  if (toDate != null) {
+    let tmp = toDate.split(':')
+    tmpToDate.hour(tmp[0])
+    tmpToDate.minute(tmp[1])
   }
-  if (fromDateStr && toDateStr) {
-    return toDate.diff(fromDate, 'minutes')
+  if (fromDate && toDate) {
+    return tmpToDate.diff(tmpFromDate, 'minutes')
   }
-  return null
+  return ''
 }
 function format (num) {
   if (!num) {
@@ -89,6 +88,13 @@ function format (num) {
   }
   let min = ('' + (num % 100)).length === 1 ? '0' + num % 100 : num % 100
   return Math.floor(num / 100) + ':' + min
+}
+function formatDateToStr (date) {
+  if (date) {
+    return ''
+  }
+  let tmp = moment(date)
+  return tmp.format('HH:mm')
 }
 </script>
 
