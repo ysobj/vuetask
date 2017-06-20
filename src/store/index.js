@@ -24,8 +24,9 @@ const mutations = {
     tmp.isDone = !tmp.isDone
   },
   updateTask (state, task) {
-    console.log(task)
-    let tmp = state.taskList.find((el) => el === task)
+    debugger
+    console.log(task.id)
+    let tmp = state.taskList.find((el) => el.id === task.id)
     tmp.text = task.taskText
     tmp.estimate = task.estimate
     tmp.fromDate = new Date()

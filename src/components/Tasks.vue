@@ -6,6 +6,7 @@
           <task v-for="item in taskList"
             :taskText="item.text"
             :taskType="item.type"
+            :id="item.id"
             :key="item.id"
             @updateTask="updateTask(item)"
             @updateTaskState="updateTaskState(item)">
