@@ -1,17 +1,29 @@
 <template>
-  <div class="date-container">
-    <div class="date-box"><img src="static/repeat.png"></div>
-    <div class="date-box">&lt;&lt;</div>
-    <div class="date-box">Yesterday</div>
-    <div class="date-box attention">2017/6/13</div>
-    <div class="date-box">Tomorrow</div>
-    <div class="date-box">&gt;&gt;</div>
-    <div class="date-box"><img src="static/gear.png"></div>
+  <div>
+    <div class="date-container">
+      <div class="date-box"><img src="static/repeat.png"></div>
+      <div class="date-box">&lt;&lt;</div>
+      <div class="date-box">Yesterday</div>
+      <div class="date-box attention">2017/6/13</div>
+      <div class="date-box">Tomorrow</div>
+      <div class="date-box">&gt;&gt;</div>
+      <div class="date-box" @click="showDialog = true"><img src="static/gear.png"></div>
+    </div>
+    <vue-dialog v-if="showDialog" @closeDialog="showDialog = false"></vue-dialog>
   </div>
 </template>
 
 <script>
+import VueDialog from '@/components/VueDialog.vue'
 export default {
+  data () {
+    return {
+      showDialog: false
+    }
+  },
+  components: {
+    'vue-dialog': VueDialog
+  }
 }
 </script>
 
