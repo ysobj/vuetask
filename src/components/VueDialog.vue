@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <div @click="closeDialog" class="dialog-screen"></div>
     <div class="dialog">
       <div class="dialog-header">header</div>
@@ -26,6 +26,16 @@ export default {
 </script>
 
 <style scoped>
+.main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .dialog-screen {
   position: fixed;
   top: 0;
@@ -37,9 +47,6 @@ export default {
   filter: opacity(65%);
 }
 .dialog {
-  position: fixed;
-  top: 300px;
-  left: 300px;
   border: 1px solid black;
   width: 450px;
   border-radius: 5px;
