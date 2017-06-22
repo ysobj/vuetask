@@ -2,11 +2,11 @@
   <div>
     <div class="date-container">
       <div class="date-box"><img src="static/repeat.png"></div>
-      <div class="date-box">&lt;&lt;</div>
-      <div class="date-box">{{labelPrevDay}}</div>
-      <div class="date-box attention">{{labelTargetDay}}</div>
-      <div class="date-box">{{labelNextDay}}</div>
-      <div class="date-box">&gt;&gt;</div>
+      <div class="date-box" @click="moveTo7DaysBefore">&lt;&lt;</div>
+      <div class="date-box disp-date" @click="movePrev">{{labelPrevDay}}</div>
+      <div class="date-box disp-date attention">{{labelTargetDay}}</div>
+      <div class="date-box disp-date" @click="moveNext">{{labelNextDay}}</div>
+      <div class="date-box" @click="moveTo7DaysAfter">&gt;&gt;</div>
       <div class="date-box" @click="showDialog = true"><img src="static/gear.png"></div>
     </div>
     <vue-dialog v-if="showDialog" @closeDialog="showDialog = false"></vue-dialog>
@@ -30,23 +30,53 @@ export default {
   },
   computed: {
     labelTargetDay () {
-      return this.targetDay.format(DATE_FORMAT)
+      return formatDate(this.today, this.targetDay)
     },
     labelNextDay () {
-      if (this.today.format(DATE_FORMAT) === this.targetDay.format(DATE_FORMAT)) {
-        return 'Tomorrow'
-      }
-      let next = moment(this.targetDay).add(1, 'days')
-      return next.format(DATE_FORMAT)
+      return formatDate(this.today, getTomorrow(this.targetDay))
     },
     labelPrevDay () {
-      if (this.today.format(DATE_FORMAT) === this.targetDay.format(DATE_FORMAT)) {
-        return 'Yesterday'
-      }
-      let prev = moment(this.targetDay).add(-1, 'days')
-      return prev.format(DATE_FORMAT)
+      return formatDate(this.today, getYesterday(this.targetDay))
+    }
+  },
+  methods: {
+    movePrev () {
+      this.targetDay = getYesterday(this.targetDay)
+    },
+    moveNext () {
+      this.targetDay = getTomorrow(this.targetDay)
+    },
+    moveTo7DaysBefore () {
+      this.targetDay = get7DaysBefore(this.targetDay)
+    },
+    moveTo7DaysAfter () {
+      this.targetDay = get7DaysAfter(this.targetDay)
     }
   }
+}
+function get7DaysBefore (today) {
+  return moment(today).add(-7, 'days')
+}
+function get7DaysAfter (today) {
+  return moment(today).add(7, 'days')
+}
+function getYesterday (today) {
+  return moment(today).add(-1, 'days')
+}
+function getTomorrow (today) {
+  return moment(today).add(1, 'days')
+}
+function formatDate (today, day) {
+  let formatted = day.format(DATE_FORMAT)
+  let yesterday = moment(today).add(-1, 'days').format(DATE_FORMAT)
+  if (formatted === yesterday) {
+    return 'Yesterday'
+  }
+  let tomorrow = moment(today).add(1, 'days').format(DATE_FORMAT)
+  if (formatted === tomorrow) {
+    return 'Tomorrow'
+  }
+  return formatted
 }
 </script>
 
@@ -70,6 +100,9 @@ export default {
 }
 .date-box:hover{
   filter: brightness(80%)
+}
+.disp-date {
+  width: 100px;
 }
 .attention {
   background: orange;
