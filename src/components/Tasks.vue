@@ -15,6 +15,7 @@
       </tbody>
     </table>
     <task-form></task-form>
+    <span>{{target}}</span>
   </div>
 </template>
 
@@ -24,6 +25,7 @@ import TaskForm from './TaskForm.vue'
 import draggable from 'vuedraggable'
 export default {
   name: 'tasks',
+  props: ['target'],
   data () {
     return {
       msg: 'This is Todo App'

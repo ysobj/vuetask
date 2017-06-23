@@ -18,10 +18,11 @@ import VueDialog from '@/components/VueDialog.vue'
 import moment from 'moment'
 const DATE_FORMAT = 'YYYY/MM/DD'
 export default {
+  props: ['target'],
   data () {
     return {
       showDialog: false,
-      targetDay: moment(),
+      targetDay: this.target == null ? moment() : this.target,
       today: moment()
     }
   },
@@ -42,15 +43,19 @@ export default {
   methods: {
     movePrev () {
       this.targetDay = getYesterday(this.targetDay)
+      this.$emit('changeTarget', moment(this.targetDay))
     },
     moveNext () {
       this.targetDay = getTomorrow(this.targetDay)
+      this.$emit('changeTarget', moment(this.targetDay))
     },
     moveTo7DaysBefore () {
       this.targetDay = get7DaysBefore(this.targetDay)
+      this.$emit('changeTarget', moment(this.targetDay))
     },
     moveTo7DaysAfter () {
       this.targetDay = get7DaysAfter(this.targetDay)
+      this.$emit('changeTarget', moment(this.targetDay))
     }
   }
 }
