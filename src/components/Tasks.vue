@@ -15,7 +15,7 @@
       </tbody>
     </table>
     <task-form></task-form>
-    <span>{{target}}</span>
+    <span>{{target.format('YYYY/MM/DD')}}</span>
   </div>
 </template>
 

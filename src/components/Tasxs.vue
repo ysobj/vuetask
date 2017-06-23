@@ -1,7 +1,7 @@
 <template>
   <div class="tasxs">
     <DateBar :target="target" @changeTarget="changeTarget"></DateBar>   
-    <Tasks :target="target2"></Tasks>
+    <Tasks :target="target"></Tasks>
   </div>
 </template>
 
@@ -12,8 +12,7 @@ import moment from 'moment'
 export default {
   data () {
     return {
-      target: moment('2017-05-05', 'YYYY-MM-DD'),
-      target2: moment('2017-05-05', 'YYYY-MM-DD')
+      target: moment('2017-05-05', 'YYYY-MM-DD')
     }
   },
   components: {
