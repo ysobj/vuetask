@@ -11,7 +11,13 @@ const state = {
   ]
 }
 
+const getters = {
+}
+
 const actions = {
+  getTaskByDate (context, param) {
+    console.log('getTaskByDate', param)
+  }
 }
 
 const mutations = {
@@ -40,6 +46,7 @@ const mutations = {
 
 export default new Vuex.Store({
   state,
+  getters,
   actions,
   mutations,
   strict: true
