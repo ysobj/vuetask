@@ -42,40 +42,28 @@ export default {
   },
   methods: {
     movePrev () {
-      let obj = {}
-      obj.from = moment(this.targetDay)
-      this.targetDay = getYesterday(this.targetDay)
-      obj.to = moment(this.targetDay)
-      this.$emit('changeTarget', obj)
+      this.moveDays(-1)
     },
     moveNext () {
-      let obj = {}
-      obj.from = moment(this.targetDay)
-      this.targetDay = getTomorrow(this.targetDay)
-      obj.to = moment(this.targetDay)
-      this.$emit('changeTarget', obj)
+      this.moveDays(1)
     },
     moveTo7DaysBefore () {
-      let obj = {}
-      obj.from = moment(this.targetDay)
-      this.targetDay = get7DaysBefore(this.targetDay)
-      obj.to = moment(this.targetDay)
-      this.$emit('changeTarget', obj)
+      this.moveDays(-7)
     },
     moveTo7DaysAfter () {
+      this.moveDays(7)
+    },
+    moveDays (days) {
       let obj = {}
       obj.from = moment(this.targetDay)
-      this.targetDay = get7DaysAfter(this.targetDay)
+      this.targetDay = calcDay(this.targetDay, days)
       obj.to = moment(this.targetDay)
       this.$emit('changeTarget', obj)
     }
   }
 }
-function get7DaysBefore (today) {
-  return moment(today).add(-7, 'days')
-}
-function get7DaysAfter (today) {
-  return moment(today).add(7, 'days')
+function calcDay (today, days) {
+  return moment(today).add(days, 'days')
 }
 function getYesterday (today) {
   return moment(today).add(-1, 'days')
@@ -84,16 +72,7 @@ function getTomorrow (today) {
   return moment(today).add(1, 'days')
 }
 function formatDate (today, day) {
-  let formatted = day.format(DATE_FORMAT)
-  let yesterday = moment(today).add(-1, 'days').format(DATE_FORMAT)
-  if (formatted === yesterday) {
-    return 'Yesterday'
-  }
-  let tomorrow = moment(today).add(1, 'days').format(DATE_FORMAT)
-  if (formatted === tomorrow) {
-    return 'Tomorrow'
-  }
-  return formatted
+  return day.format(DATE_FORMAT)
 }
 </script>
 
