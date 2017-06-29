@@ -42,20 +42,32 @@ export default {
   },
   methods: {
     movePrev () {
+      let obj = {}
+      obj.from = moment(this.targetDay)
       this.targetDay = getYesterday(this.targetDay)
-      this.$emit('changeTarget', moment(this.targetDay))
+      obj.to = moment(this.targetDay)
+      this.$emit('changeTarget', obj)
     },
     moveNext () {
+      let obj = {}
+      obj.from = moment(this.targetDay)
       this.targetDay = getTomorrow(this.targetDay)
-      this.$emit('changeTarget', moment(this.targetDay))
+      obj.to = moment(this.targetDay)
+      this.$emit('changeTarget', obj)
     },
     moveTo7DaysBefore () {
+      let obj = {}
+      obj.from = moment(this.targetDay)
       this.targetDay = get7DaysBefore(this.targetDay)
-      this.$emit('changeTarget', moment(this.targetDay))
+      obj.to = moment(this.targetDay)
+      this.$emit('changeTarget', obj)
     },
     moveTo7DaysAfter () {
+      let obj = {}
+      obj.from = moment(this.targetDay)
       this.targetDay = get7DaysAfter(this.targetDay)
-      this.$emit('changeTarget', moment(this.targetDay))
+      obj.to = moment(this.targetDay)
+      this.$emit('changeTarget', obj)
     }
   }
 }

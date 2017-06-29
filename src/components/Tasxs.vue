@@ -21,9 +21,8 @@ export default {
   },
   methods: {
     changeTarget (target) {
-      console.log('changeTarget', target)
       this.$store.dispatch('getTaskByDate', target)
-      this.target = target
+      this.target = target.to
     }
   }
 }

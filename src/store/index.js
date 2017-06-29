@@ -15,8 +15,15 @@ const getters = {
 }
 
 const actions = {
-  getTaskByDate (context, param) {
-    console.log('getTaskByDate', param)
+  getTaskByDate (context, {from, to}) {
+    let str = JSON.stringify(context.state.taskList)
+    localStorage.setItem(from.format('YYYY-MM-DD'), str)
+    let tmp = localStorage.getItem(to.format('YYYY-MM-DD'))
+    let newTaskList = []
+    if (tmp) {
+      newTaskList = JSON.parse(tmp)
+    }
+    context.commit('updateList', newTaskList)
   }
 }
 
@@ -25,13 +32,10 @@ const mutations = {
     state.taskList.push(task)
   },
   updateTaskState (state, task) {
-    console.log('changeTaskState', task)
     let tmp = state.taskList.find((el) => el === task)
     tmp.isDone = !tmp.isDone
   },
   updateTask (state, task) {
-    debugger
-    console.log(task.id)
     let tmp = state.taskList.find((el) => el.id === task.id)
     tmp.text = task.taskText
     tmp.estimate = task.estimate
